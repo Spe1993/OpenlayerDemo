@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-09-21 11:36:01
- * @LastEditTime: 2020-09-22 23:09:18
+ * @LastEditTime: 2020-09-22 23:44:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \oldemo\src\components\cusMap.vue
@@ -39,9 +39,8 @@ import { getBottomLeft, getTopRight } from "ol/extent";
 import { Vector as VectorLayer } from "ol/layer";
 import { Fill, Stroke, Circle, Style, Text } from "ol/style";
 import XYZ from "ol/source/XYZ";
-import GeoJSON from 'ol/format/GeoJSON';
-import {bbox as bboxStrategy} from 'ol/loadingstrategy';
-
+import GeoJSON from "ol/format/GeoJSON";
+import { bbox as bboxStrategy } from "ol/loadingstrategy";
 
 export default {
   name: "cusMap",
@@ -185,8 +184,6 @@ export default {
       }
     },
 
-
- 
     /**
      * @description: 设置图层的显示与隐藏
      * @param {string}  图层名称，添加图层时设置的唯一标识名称
@@ -461,6 +458,30 @@ export default {
     clearTeampLayer() {
       for (let i = 0; i < this.tempLayers.length; i++) {
         this.cusMap.removeLayer(this.tempLayers[i]);
+      }
+    },
+
+    /**
+     * @description: 地图绑定矢量数据点击事件
+     * @param {function} 回调函数 (feature)=>{} 参数为点击中的要素 
+     * @return {type} 暂无 
+     */
+    bindFeatureClick: function (func) {
+      try {
+        this.cusMap.on("click",   (evt) =>{
+          var feature = this.cusMap.forEachFeatureAtPixel(evt.pixel, function (
+            feature
+          ) {
+            return feature;
+          });
+          if (feature) {
+             func(feature);
+          } else {
+             
+          }
+        });
+      } catch (error) {
+        console.error(error);
       }
     },
   },
