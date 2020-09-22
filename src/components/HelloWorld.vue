@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-09-21 11:34:04
- * @LastEditTime: 2020-09-22 23:13:02
+ * @LastEditTime: 2020-09-22 23:19:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \oldemo\src\components\HelloWorld.vue
@@ -108,10 +108,14 @@ export default {
     },
 
     setZoomLevel(){
+
+      //根据坐标创建点
       let feature=featureEx.fromWkt("POINT(456740.59058152593  3142481.5177200856)");
 
+      //将点添加到新建的矢量图层中
       let tempVecLayer= this.$refs.cusMap.hilightFeature(feature);
 
+      //设置图层的最大显示等级
       tempVecLayer.setMaxZoom(2.5);
     }
 
